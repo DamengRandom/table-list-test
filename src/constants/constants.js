@@ -1,0 +1,2 @@
+export const FETCH_PEOPLE_DATA = 'FETCH_PEOPLE_DATA';
+export const FETCH_FILM_DATA = 'FETCH_FILM_DATA';

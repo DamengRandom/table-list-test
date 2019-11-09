@@ -1,0 +1,1 @@
+export const PEOPLE_END_POINT = 'https://swapi.co/api/people/';
