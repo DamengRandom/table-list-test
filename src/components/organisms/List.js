@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { ListItemWrapper } from "../../styles/shared";
 import Text from "../atoms/Text";
-import Pagination from "../atoms/Pagination";
+import Pagination from "../molecules/Pagination";
 import ListItem from "../molecules/ListItem";
 import Details from "./Details";
 import { loadPeopleThunk } from "../../actions/list";
@@ -53,7 +53,7 @@ const List = ({ people, loadPeopleThunk }) => {
     setTheItem(people.find(data => data.name === name) || {});
   }
 
-  const ListData = ({currentPeople}) => (
+  const ListItems = ({currentPeople}) => (
     currentPeople.map(listItem => (
       <ListItem
         key={listItem.name}
@@ -82,12 +82,11 @@ const List = ({ people, loadPeopleThunk }) => {
               <p>Mass</p>
             </ListItemWrapper>
             <ListContent>
-              <ListData currentPeople={currentPeople} />
+              <ListItems currentPeople={currentPeople} />
             </ListContent>
             <Pagination
-              peoplePerPage={peoplePerPage}
-              totalPeople={people}
               handlePageSwitch={handlePageSwitch}
+              currentPageNumber={currentPage}
             />
           </ListTable>
           <Details theItem={theItem} />

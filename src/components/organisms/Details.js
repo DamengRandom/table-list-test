@@ -6,7 +6,12 @@ import Text from "../atoms/Text";
 const DetailsWrapper = styled.div`
   border-top: 1px solid;
   margin: 0 -5px;
-  margin-top: 40px;
+  margin-top: 20px;
+
+  div,
+  .padding-5 {
+    padding: 0 5px;
+  }
 `;
 
 const DetailsContents = styled.div`
@@ -19,7 +24,7 @@ const DetailsContents = styled.div`
 export default function Details({ theItem }) {
   const [titleLoading, setTitleLoading] = useState(true);
   const [firmTitles, setFilmTitles] = useState([]);
-  const { name, gender, birth_year, films } = theItem;
+  const { name, height, gender, birth_year, films } = theItem;
 
   const getFilmTitle = useCallback(
     () => {
@@ -45,6 +50,13 @@ export default function Details({ theItem }) {
     getFilmTitle();
   }, [getFilmTitle]);
 
+  const LoaderIndicator = ({name, height, gender, birth_year}) => (
+    name && height && gender && birth_year ?
+      <p className="padding-5">loading ..</p>
+      :
+      <p className="padding-5">Click table row data to view film details ..</p>
+  );
+
   return (
     <DetailsWrapper>
       <Text
@@ -52,11 +64,12 @@ export default function Details({ theItem }) {
         text="Details section"
       />
       {
-        theItem && theItem !== {} && firmTitles.length > 0 ? (
+        theItem !== {} && firmTitles.length > 0 ? (
           <DetailsContents>
-            <p><span>name</span>: {name}</p>
-            <p><span>birth year</span>: {birth_year}</p>
-            <p><span>gender</span>: {gender}</p>
+            <p><span>Name</span>: {name}</p>
+            <p><span>Height</span>: {height}</p>
+            <p><span>Birth year</span>: {birth_year}</p>
+            <p><span>Gender</span>: {gender}</p>
             <div>
               <span>List of films</span>:
               {
@@ -67,7 +80,11 @@ export default function Details({ theItem }) {
               }
             </div>
           </DetailsContents>
-        ) : <p>Click table row data to view film details ..</p>
+        ) : <LoaderIndicator
+              name={name}
+              height={height}
+              gender={gender}
+              birth_year={birth_year} />
       }
     </DetailsWrapper>
   )
